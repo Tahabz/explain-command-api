@@ -1,21 +1,23 @@
-import Token, {Command, Arg, Tokens} from './token'
+import IToken, { Tokens } from '../tokens';
+import {npmType, npmVal} from './npmtoken'
 
-const tokenize = (input: string, tokens: Tokens): Token[] => {
+type Type = npmType
+type Value = npmVal
+
+const tokenize = <A extends Type, B extends Value, X extends Tokens<A>>(input: string, tokens: X): IToken<A, B>[] => {
   const splitInput = input.split(' ');
-  const outputTokens = splitInput.map((el: string): Token => {
+  return splitInput.map((el: string): IToken<A, B> => {
     if (el in tokens) {
 		return {
 			type: tokens[el],
-			value: el as Command | Arg
+			value: el as B
 		}
 	}
 	return {
 		type: tokens.unknown,
-		value: el as string
+		value: el as B
 	}
   })
-
-  return outputTokens
 }
 
 export default tokenize

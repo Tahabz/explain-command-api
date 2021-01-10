@@ -1,8 +1,9 @@
-import Token, {Command, Arg, Tokens, tokens} from 'build/../../Lexers/npm/token'
+import {tokens, npmType, npmVal} from '../../Lexers/npm/npmtoken'
+import IToken, {Tokens} from '../../Lexers/tokens' 
 import tokenize from 'build/../../Lexers/npm/tokenize'
 
 it("tests the tokenizer with basic input", () => {
-	const tok: Token[] = [
+	const tok: IToken<npmType, npmVal>[] = [
 		{
 			type: "NPM",
 			value: "npm"
