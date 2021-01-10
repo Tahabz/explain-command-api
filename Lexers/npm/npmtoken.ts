@@ -8,7 +8,7 @@ type Unknown = "UNKNOWN"
 export type npmVal = Command | Arg | string
 export type npmType = Type | Unknown
 
-export const tokens : Tokens<Type | Unknown> = {
+export const npmTokens : Tokens<Type | Unknown> = {
   install: "COMMAND",
   i      : "COMMAND",
   add    : "COMMAND",
