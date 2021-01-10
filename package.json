@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+	"test": "jest",
     "start": "nodemon index.ts",
     "build": "tsc --project ./"
   },
@@ -20,11 +20,13 @@
   "homepage": "https://github.com/Tahabz/explain-command-api#readme",
   "devDependencies": {
     "@types/express": "^4.17.9",
+    "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",
     "fp-ts": "^2.9.3",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7",
     "ts-fs": "^0.1.0",
+    "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },

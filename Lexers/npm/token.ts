@@ -6,7 +6,9 @@ export type Arg = "GRANT" | "REVOKE"
 
 export type Unknown = "UNKNOWN"
 
-export const tokens : {[key: string]: Type | Unknown} = {
+export type Tokens = {[key: string]: Type | Unknown}
+
+export const tokens : Tokens = {
   install: "COMMAND",
   i      : "COMMAND",
   add    : "COMMAND",

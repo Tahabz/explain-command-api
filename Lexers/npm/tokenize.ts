@@ -1,9 +1,6 @@
-import Token, {tokens, Type, Command, Arg, Unknown} from './token'
-import * as M from 'pattern-matching-ts/lib/match'
-import { pipe } from 'fp-ts/lib/function'
+import Token, {Command, Arg, Tokens} from './token'
 
-
-const tokenize = (input: string): Token[] => {
+const tokenize = (input: string, tokens: Tokens): Token[] => {
   const splitInput = input.split(' ');
   const outputTokens = splitInput.map((el: string): Token => {
     if (el in tokens) {
@@ -20,3 +17,5 @@ const tokenize = (input: string): Token[] => {
 
   return outputTokens
 }
+
+export default tokenize
