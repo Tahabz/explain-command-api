@@ -13,7 +13,7 @@ export const newToken = (type: Type, value: Value): IToken<Type, Value> => {
 
 const tokenize = (input: string, tokens: Tokens<Type>): IToken<Type, Value>[] => {
   const splitInput = input.split(' ');
-  return splitInput.map((el: string): IToken<Type, Value> => {
+  return splitInput.map((el): IToken<Type, Value> => {
     if (el in tokens) {
 		return newToken(tokens[el], el)
 	}

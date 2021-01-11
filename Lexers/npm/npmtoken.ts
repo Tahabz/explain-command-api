@@ -17,6 +17,5 @@ export const npmTokens : Tokens<Type | Unknown> = {
   revoke : "ARGUMENT",
   npm    : "NPM",
   arg    : "ARGUMENT",
-  command: "COMMAND",
   unknown: "UNKNOWN"
 }
