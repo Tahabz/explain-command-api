@@ -1,4 +1,4 @@
-import {npmTokens, npmType, npmVal} from '../../Lexers/npm/npmtoken'
+import {npmTokens, npmType, npmVal, npmTypes} from '../../Lexers/npm/npmtoken'
 import IToken, {Tokens} from '../../Lexers/tokens' 
 import tokenize, {newToken} from 'build/../../Lexers/npm/tokenize'
 
@@ -15,14 +15,14 @@ it("tests the tokenizer with basic input", () => {
 		}
 	];
 	expect(tokenize("npm install", npmTokens)).toEqual(tok)
-	expect(tokenize("", npmTokens)).toEqual([{"type": npmTokens.unknown, value: ""}])
-	const tok2 = [
+	expect(tokenize("", npmTokens)).toEqual([{"type": npmTokens.arg, value: ""}])
+	const tok2: IToken<npmType, npmVal>[] = [
 		{
-			type: npmTokens.unknown,
+			type: npmTypes.arg,
 			value: "someshitty"
 		},
 		{
-			type: npmTokens.unknown,
+			type: npmTokens.arg,
 			value: "command"
 		}
 	]
@@ -40,7 +40,7 @@ it("tests the tokenizer with different input", () => {
 			value: "i"
 		},
 		{
-			type: npmTokens.unknown,
+			type: npmTokens.arg,
 			value: "jest"
 		}
 	];
@@ -60,8 +60,8 @@ it("tests the tokenizer with different input", () => {
 	const tok4 : IToken<npmType, npmVal>[]= [
 		newToken("NPM", "npm"),
 		newToken("COMMAND", "add"),
-		newToken("UNKNOWN", "some"),
-		newToken("UNKNOWN", "package")
+		newToken("ARGUMENT", "some"),
+		newToken("ARGUMENT", "package")
 	]
 	expect(tokenize("npm add some package", npmTokens)).toEqual(tok4)
 })

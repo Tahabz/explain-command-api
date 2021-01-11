@@ -1,9 +1,10 @@
 import IToken, { Tokens } from '../tokens';
-import {npmType, npmVal} from './npmtoken'
+import {npmType, npmVal, npmTypes} from './npmtoken'
 
 type Type = npmType
 type Value = npmVal
 
+const types: {readonly [key: string]: Type} = npmTypes
 export const newToken = (type: Type, value: Value): IToken<Type, Value> => {
 	return {
 		type: type,
@@ -17,10 +18,7 @@ const tokenize = (input: string, tokens: Tokens<Type>): IToken<Type, Value>[] =>
     if (el in tokens) {
 		return newToken(tokens[el], el)
 	}
-	return {
-		type: tokens.unknown,
-		value: el
-	}
+	return newToken(types.arg, el)
   })
 }
 
