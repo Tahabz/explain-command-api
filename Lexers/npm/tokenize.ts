@@ -4,18 +4,22 @@ import {npmType, npmVal} from './npmtoken'
 type Type = npmType
 type Value = npmVal
 
-const tokenize = <A extends Type, B extends Value, X extends Tokens<A>>(input: string, tokens: X): IToken<A, B>[] => {
+export const newToken = (type: Type, value: Value): IToken<Type, Value> => {
+	return {
+		type: type,
+		value: value
+	}
+}
+
+const tokenize = (input: string, tokens: Tokens<Type>): IToken<Type, Value>[] => {
   const splitInput = input.split(' ');
-  return splitInput.map((el: string): IToken<A, B> => {
+  return splitInput.map((el: string): IToken<Type, Value> => {
     if (el in tokens) {
-		return {
-			type: tokens[el],
-			value: el as B
-		}
+		return newToken(tokens[el], el)
 	}
 	return {
 		type: tokens.unknown,
-		value: el as B
+		value: el
 	}
   })
 }
