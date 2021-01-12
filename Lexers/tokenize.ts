@@ -1,5 +1,5 @@
-import IToken, { Tokens } from '../tokens';
-import {npmType, npmVal, npmTypes} from './npmtoken'
+import IToken, { Tokens } from './tokens';
+import {npmType, npmVal, npmTypes} from './npm/npmtoken'
 
 type Type = npmType
 type Value = npmVal

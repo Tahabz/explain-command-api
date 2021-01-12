@@ -11,6 +11,7 @@ export const npmTypes: {readonly [key: string]: Type} = {
   arg: "ARGUMENT",
   command: "COMMAND"
 }
+
 export const npmTokens : Tokens<Type> = {
   install: "COMMAND",
   i      : "COMMAND",

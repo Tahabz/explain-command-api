@@ -1,6 +1,6 @@
 import {npmTokens, npmType, npmVal, npmTypes} from '../../Lexers/npm/npmtoken'
 import IToken, {Tokens} from '../../Lexers/tokens' 
-import tokenize, {newToken} from 'build/../../Lexers/npm/tokenize'
+import tokenize, {newToken} from '../../Lexers/tokenize'
 
 
 it("tests the tokenizer with basic input", () => {
