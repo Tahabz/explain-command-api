@@ -1,4 +1,4 @@
-import {Model, Document, FilterQuery} from 'mongoose'
+import {Model, Document, FilterQuery, QueryOptions, UpdateQuery} from 'mongoose'
 
 const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise((resolve, reject) => {
 	model.findOne(filter).lean().exec()
@@ -18,7 +18,7 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 	  .catch((e) => reject(e));
   });
   
-  const createOne = <T extends Document>(model: Model<T>) => (data) => new Promise((resolve, reject) => {
+  const createOne = <T extends Document>(model: Model<T>) => (data: T) => new Promise((resolve, reject) => {
 	model.create(data)
 	  .then((doc) => {
 		if (!doc) reject(new Error('Something went wrong'));
@@ -27,7 +27,7 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 	  .catch((e) => reject(e));
   });
   
-  const deleteOne = (model) => (filter) => new Promise((resolve, reject) => {
+  const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise((resolve, reject) => {
 	model.findOneAndRemove(filter).lean().exec()
 	  .then((removed) => {
 		if (!removed) reject(new Error('An error occured'));
@@ -36,7 +36,7 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 	  .catch((e) => reject(e));
   });
   
-  const updateOne = (model) => (filter, data, options) => new Promise((resolve, reject) => {
+  const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, data: UpdateQuery<T>, options: QueryOptions) => new Promise((resolve, reject) => {
 	model.findOneAndUpdate(filter, data, options).lean().exec()
 	  .then((updated) => {
 		if (!updated) {
@@ -47,7 +47,7 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 	  .catch((e) => reject(e));
   });
   
-  module.exports = (model) => ({
+  module.exports = <T extends Document>(model: Model<T>) => ({
 	getOne: getOne(model),
 	getAll,
 	createOne: createOne(model),
