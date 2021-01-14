@@ -32,3 +32,5 @@ export interface ICommand extends Document {
 }
 
 export default model<ICommand>('Command', CommandSchema)
+
+// //command.updateOne({name: 'npm'}, {$pull: { Arguments: { name: 'somename'}}})
