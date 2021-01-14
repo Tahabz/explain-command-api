@@ -18,7 +18,7 @@ const getAll = <T extends Document>(model: Model<T>) => new Promise((resolve, re
 		.catch((e) => reject(e));
 });
 
-const createOne = <T extends Document>(model: Model<T>) => (data: T) => new Promise((resolve, reject) => {
+const createOne = <T extends Document>(model: Model<T>) => (data: any) => new Promise((resolve, reject) => {
 	model.create(data)
 		.then((doc) => {
 			if (!doc) reject(new Error('Something went wrong'));

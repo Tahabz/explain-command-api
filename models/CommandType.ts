@@ -1,7 +1,7 @@
 import { Document, Model, model, Types, Schema, Query } from "mongoose"
 
 
-const CommandTypeSchema = new Schema({
+const CommandTypeSchema: Schema = new Schema({
 	name: {
 		type: String,
 		requied: true,
