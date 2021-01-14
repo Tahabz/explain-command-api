@@ -1,5 +1,5 @@
 import parentService from './parentService'
-import command from '../models/Command'
+import command, {IMinCommand, ICommand} from '../models/Command'
 
-export default parentService(command)
+export default parentService<ICommand, IMinCommand>(command)
 // //command.updateOne({name: 'npm'}, {$pull: { Arguments: { name: 'somename'}}})

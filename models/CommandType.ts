@@ -8,10 +8,15 @@ const CommandTypeSchema: Schema = new Schema({
 		unique: true
 	},
 	description: {
-		type: Text,
+		type: String,
 		required: true
 	}
 })
+
+export interface IMinCommandType {
+	readonly name: string,
+	readonly description: string
+}
 
 export interface ICommandType extends Document{
 	readonly name: string,

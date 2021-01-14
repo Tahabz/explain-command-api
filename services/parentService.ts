@@ -1,56 +1,56 @@
-import { Model, Document, FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'
+import { Model, Document, FilterQuery, QueryOptions, UpdateQuery, CreateDocumentDefinition } from 'mongoose'
 
 const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise((resolve, reject) => {
 	model.findOne(filter).lean().exec()
-		.then((doc) => {
+		.then((doc: T) => {
 			if (!doc) reject(new Error('Empty document'));
 			resolve(doc);
 		})
-		.catch((e) => reject(e));
+		.catch((e: any) => reject(e));
 });
 
-const getAll = <T extends Document>(model: Model<T>) => new Promise((resolve, reject) => {
+const getAll = <T extends Document>(model: Model<T>) => new Promise<T>((resolve, reject) => {
 	model.find({}).lean().exec()
-		.then((docs) => {
+		.then((docs: T) => {
 			if (!docs) reject(new Error('Empty documents'));
 			resolve(docs);
 		})
-		.catch((e) => reject(e));
+		.catch((e: any) => reject(e));
 });
 
-const createOne = <T extends Document>(model: Model<T>) => (data: any) => new Promise((resolve, reject) => {
+const createOne = <T extends Document, U>(model: Model<T>) => (data: U) => new Promise<T>((resolve, reject) => {
 	model.create(data)
-		.then((doc) => {
+		.then((doc: T) => {
 			if (!doc) reject(new Error('Something went wrong'));
 			resolve(doc);
 		})
-		.catch((e) => reject(e));
+		.catch((e: any) => reject(e));
 });
 
 const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise((resolve, reject) => {
 	model.findOneAndDelete(filter).lean().exec()
-		.then((removed) => {
+		.then((removed: T) => {
 			if (!removed) reject(new Error('An error occured'));
 			resolve(removed);
 		})
-		.catch((e) => reject(e));
+		.catch((e: any) => reject(e));
 });
 
 const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, data: UpdateQuery<T>, options?: QueryOptions) => new Promise((resolve, reject) => {
 	model.updateOne(filter, data, options).lean().exec()
-		.then((updated) => {
+		.then((updated: T) => {
 			if (!updated) {
 				reject(new Error('An error occured'));
 			}
 			resolve(updated);
 		})
-		.catch((e) => reject(e));
+		.catch((e: any) => reject(e));
 });
 
-export default <T extends Document>(model: Model<T>) => ({
+export default <T extends Document, U>(model: Model<T>) => ({
 	getOne: getOne(model),
 	getAll,
-	createOne: createOne(model),
+	createOne: createOne<T, U>(model),
 	updateOne: updateOne(model),
 	deleteOne: deleteOne(model),
 });

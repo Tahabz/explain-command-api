@@ -16,5 +16,9 @@ export interface IArgument extends Document {
 	name: string,
 	description: string
 }
+export interface IMinArgument {
+	name: string,
+	description: string
+}
 
 export default model<IArgument>("Argument", ArgumentSchema) 

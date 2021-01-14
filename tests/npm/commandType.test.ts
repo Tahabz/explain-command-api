@@ -1,6 +1,12 @@
 import mongoose from 'mongoose'
 import connect from '../../db/connect'
-import * as commandType from '../../controllers/commandTypeController'
+import commandType, {IMinCommandType} from '../../models/CommandType'
+import commandTypeService from '../../services/commandTypeService'
+import { IMinCommand } from '../../models/Command'
+
+afterEach(async () => {
+	await commandType.deleteMany()
+})
 
 beforeAll(async () => {
 	try {
@@ -11,7 +17,12 @@ beforeAll(async () => {
 })
 
 describe('Create a Command Type', () => {
-	it('should add a command type', async () => {
-
+	it('should add a command type',  () => {
+		const commandType: IMinCommandType = {
+			name: 'npm',
+			description: 'node package manager',
+		}
+		return commandTypeService.createOne(commandType)
+					.then(({name, description}) => expect({name, description}).toEqual(commandType))
 	})
 })
