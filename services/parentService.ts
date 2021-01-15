@@ -1,18 +1,22 @@
 import { Model, Document, FilterQuery, QueryOptions, UpdateQuery, CreateDocumentDefinition } from 'mongoose'
 
-const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise((resolve, reject) => {
+const getOne = <T extends Document>(model: Model<T>) => {(filter: FilterQuery<T>) => new Promise<T>((resolve, reject) => {
 	model.findOne(filter).lean().exec()
 		.then((doc: T) => {
 			if (!doc) reject(new Error('Empty document'));
 			resolve(doc);
 		})
 		.catch((e: any) => reject(e));
-});
+});}
 
 const getAll = <T extends Document>(model: Model<T>) => new Promise<T>((resolve, reject) => {
-	model.find({}).lean().exec()
+	model
+	.find({})
+	.lean()
+	.exec()
 		.then((docs: T) => {
-			if (!docs) reject(new Error('Empty documents'));
+			if (!docs)
+				reject(new Error('Empty documents'));
 			resolve(docs);
 		})
 		.catch((e: any) => reject(e));
@@ -27,7 +31,7 @@ const createOne = <T extends Document, U>(model: Model<T>) => (data: U) => new P
 		.catch((e: any) => reject(e));
 });
 
-const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise((resolve, reject) => {
+const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<T>((resolve, reject) => {
 	model.findOneAndDelete(filter).lean().exec()
 		.then((removed: T) => {
 			if (!removed) reject(new Error('An error occured'));
@@ -36,8 +40,8 @@ const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<
 		.catch((e: any) => reject(e));
 });
 
-const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, data: UpdateQuery<T>, options?: QueryOptions) => new Promise((resolve, reject) => {
-	model.updateOne(filter, data, options).lean().exec()
+const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, data: UpdateQuery<T>, options?: QueryOptions) => new Promise<T>((resolve, reject) => {
+	model.findOneAndUpdate(filter, data, options).lean().exec()
 		.then((updated: T) => {
 			if (!updated) {
 				reject(new Error('An error occured'));

@@ -5,10 +5,7 @@ import commandTypeService from '../services/commandTypeService'
 import express from 'express'
 
 export const addCommandType = async (req: express.Request, res: express.Response) => {
-	const npm = await commandTypeService.createOne({
-		name: 'hello',
-		description: 'somefucking description'
-	})
+	
 }
 
 export const deleteCommandType = (req: express.Request, res: express.Response) => {
