@@ -1,26 +1,26 @@
 import connect from '../../db/connect'
-import CommandType, {IMinCommandType} from '../../models/CommandType'
+import CommandType, { IMinCommandType } from '../../models/CommandType'
 import commandTypeService from '../../services/commandTypeService'
 
 afterEach(async () => {
- await CommandType.deleteMany()
+	await CommandType.deleteMany()
 })
 
 beforeAll(async () => {
 	try {
 		await connect()
-	} catch(e) {
+	} catch (e) {
 		console.log(e);
 	}
 })
 
-beforeEach(() => { 
-	jest.restoreAllMocks(); 
+beforeEach(() => {
+	jest.restoreAllMocks();
 });
 
 
 describe('Create a Command Type', () => {
-	it('should add a command type',  async (done) => {
+	it('should add a command type', async (done) => {
 		expect.assertions(2)
 
 		const npm: IMinCommandType = {
@@ -42,7 +42,7 @@ describe('Create a Command Type', () => {
 		jest.spyOn<any, any>(CommandType, 'create').mockReturnValue(Promise.resolve(bash))
 
 		const resBash = await commandTypeService.createOne(bash)
-		
+
 		expect(resBash).toEqual(bash)
 		done()
 	})
@@ -67,9 +67,50 @@ describe('update a command type', () => {
 			name: 'brew',
 			description: 'brew is a package manager',
 		}
+
 		const cbrew = await commandTypeService.createOne(brew)
-		const updated = await commandTypeService.updateOne({name: 'brew'}, {description: 'node package not manager'}, {new: true})
+
+		const updated = await commandTypeService.updateOne({ name: 'brew' }, { description: 'node package not manager' }, { new: true })
+
 		expect(updated.description).not.toBe(cbrew.description)
+
+		done()
+	})
+})
+
+describe('get command', () => {
+	it('should get all commands', async (done) => {
+		expect.assertions(1)
+		const brew: IMinCommandType = {
+			name: 'brew',
+			description: 'brew is a package manager',
+		}
+		const npm: IMinCommandType = {
+			name: 'npm',
+			description: 'node package manager',
+		}
+		await commandTypeService.createOne(brew)
+		await commandTypeService.createOne(npm)
+
+		const commands = await commandTypeService.getAll()
+
+		expect(commands.length).toBeGreaterThan(0)
+		done()
+	})
+
+	it('should get a specific command', async (done) => {
+		expect.assertions(3)
+
+		const npm: IMinCommandType = {
+			name: 'npm',
+			description: 'node package manager',
+		}
+		await commandTypeService.createOne(npm)
+
+		const getNpm = await commandTypeService.getOne({name: npm.name})
+		expect(getNpm._id).toBeDefined()
+		expect(getNpm.name).toBe(npm.name)
+		expect(getNpm.description).toBe(npm.description)
 		done()
 	})
 })

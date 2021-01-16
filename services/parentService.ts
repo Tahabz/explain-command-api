@@ -1,20 +1,20 @@
 import { Model, Document, FilterQuery, QueryOptions, UpdateQuery, CreateDocumentDefinition } from 'mongoose'
 
-const getOne = <T extends Document>(model: Model<T>) => {(filter: FilterQuery<T>) => new Promise<T>((resolve, reject) => {
+const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<T>((resolve, reject) => {
 	model.findOne(filter).lean().exec()
 		.then((doc: T) => {
 			if (!doc) reject(new Error('Empty document'));
 			resolve(doc);
 		})
 		.catch((e: any) => reject(e));
-});}
+});
 
-const getAll = <T extends Document>(model: Model<T>) => new Promise<T>((resolve, reject) => {
+const getAll = <T extends Document>(model: Model<T>) => () => new Promise<T[]>((resolve, reject) => {
 	model
 	.find({})
 	.lean()
 	.exec()
-		.then((docs: T) => {
+		.then((docs: T[]) => {
 			if (!docs)
 				reject(new Error('Empty documents'));
 			resolve(docs);
@@ -53,7 +53,7 @@ const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<
 
 export default <T extends Document, U>(model: Model<T>) => ({
 	getOne: getOne(model),
-	getAll,
+	getAll: getAll(model),
 	createOne: createOne<T, U>(model),
 	updateOne: updateOne(model),
 	deleteOne: deleteOne(model),

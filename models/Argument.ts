@@ -21,4 +21,4 @@ export interface IMinArgument {
 	description: string
 }
 
-export default model<IArgument>("Argument", ArgumentSchema) 
+export default model<IArgument>("Argument", ArgumentSchema)
