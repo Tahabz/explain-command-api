@@ -82,3 +82,45 @@ describe('update a command', () => {
 		done()
 	})
 })
+
+
+describe('get command', () => {
+	it('should get all commands', async (done) => {
+		expect.assertions(1)
+		const install: IMinCommand = {
+			name: 'install',
+			description: 'install package from npm',
+			CommandType: mongoose.Types.ObjectId(),
+		}
+		const remove: IMinCommand = {
+			name: 'remove',
+			description: 'remove package',
+			CommandType: mongoose.Types.ObjectId(),
+		}
+		await commandService.createOne(install)
+		await commandService.createOne(remove)
+
+		const commands = await commandService.getAll()
+
+		expect(commands.length).toBeGreaterThan(0)
+		done()
+	})
+
+	it('should get a specific command', async (done) => {
+		expect.assertions(4)
+
+		const install: IMinCommand = {
+			name: 'install',
+			description: 'install package from npm',
+			CommandType: mongoose.Types.ObjectId(),
+		}
+		await commandService.createOne(install)
+
+		const getInstall = await commandService.getOne({name: install.name})
+		expect(getInstall._id).toBeDefined()
+		expect(getInstall.name).toBe(install.name)
+		expect(getInstall.description).toBe(install.description)
+		expect(getInstall.CommandType.toHexString()).toBe(install.CommandType.toHexString())
+		done()
+	})
+})

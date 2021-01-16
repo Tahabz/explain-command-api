@@ -78,8 +78,8 @@ describe('update a command type', () => {
 	})
 })
 
-describe('get command', () => {
-	it('should get all commands', async (done) => {
+describe('get command type', () => {
+	it('should get all command types', async (done) => {
 		expect.assertions(1)
 		const brew: IMinCommandType = {
 			name: 'brew',
