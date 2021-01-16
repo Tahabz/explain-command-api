@@ -19,7 +19,6 @@ const CommandSchema = new Schema({
 	},
 	Arguments: [{
 		type: Schema.Types.ObjectId,
-		required: true,
 		ref: 'Argument'
 	}]
 })
@@ -28,14 +27,14 @@ export interface ICommand extends Document {
 	readonly name: string,
 	readonly description: string,
 	readonly CommandType: Types.ObjectId,
-	readonly Arguments: Types.ObjectId[]
+	readonly Arguments?: Types.ObjectId[]
 }
 
 export interface IMinCommand {
 	readonly name: string,
 	readonly description: string,
 	readonly CommandType: Types.ObjectId,
-	readonly Arguments: Types.ObjectId[]
+	readonly Arguments?: Types.ObjectId[]
 }
 
 export default model<ICommand>('Command', CommandSchema)

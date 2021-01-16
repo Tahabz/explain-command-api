@@ -1,12 +1,9 @@
-import mongoose from 'mongoose'
 import connect from '../../db/connect'
-import commandType, {IMinCommandType} from '../../models/CommandType'
+import CommandType, {IMinCommandType} from '../../models/CommandType'
 import commandTypeService from '../../services/commandTypeService'
-import { IMinCommand } from '../../models/Command'
-import CommandType from '../../models/CommandType'
 
 afterEach(async () => {
- await commandType.deleteMany()
+ await CommandType.deleteMany()
 })
 
 beforeAll(async () => {
