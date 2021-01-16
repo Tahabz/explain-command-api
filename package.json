@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watch --detectOpenHandles",
     "start": "nodemon index.ts",
     "build": "tsc --project ./"
   },
