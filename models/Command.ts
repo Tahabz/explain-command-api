@@ -1,5 +1,5 @@
 import { Document, Model, model, Types, Schema, Query } from "mongoose"
-import { IArgument } from "./Argument"
+import Argument, { IArgument } from "./Argument"
 import {ICommandType} from './CommandType'
 
 const CommandSchema = new Schema({
@@ -37,6 +37,14 @@ export interface IMinCommand {
 	readonly Arguments?: Types.ObjectId[]
 }
 
+
+CommandSchema.post('findOneAndDelete', async (doc: ICommandType) => {
+	try {
+		await Argument.deleteMany({id: doc.id})
+	} catch (e) {
+		console.log(e);
+	}
+})
 
 export default model<ICommand>('Command', CommandSchema)
 
