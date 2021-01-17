@@ -11,6 +11,15 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 		.catch((e: any) => reject(e));
 });
 
+const getOneAndPopulate = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, ref: string) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
+	model.findOne(filter).lean().populate(ref).exec()
+		.then((doc: LeanDocumentOrArray<T>) => {
+			if (!doc) reject(new Error('Empty document'));
+			resolve(doc);
+		})
+		.catch((e: any) => reject(e));
+});
+
 const getAll = <T extends Document>(model: Model<T>) => () => new Promise<LeanDocumentOrArray<T[]>>((resolve, reject) => {
 	model
 	.find({})
@@ -59,4 +68,5 @@ export default <T extends Document, U>(model: Model<T>) => ({
 	createOne: createOne<T, U>(model),
 	updateOne: updateOne(model),
 	deleteOne: deleteOne(model),
+	getOneAndPopulate: getOneAndPopulate(model)
 });

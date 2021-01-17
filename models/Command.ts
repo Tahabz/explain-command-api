@@ -37,6 +37,7 @@ export interface IMinCommand {
 	readonly Arguments?: Types.ObjectId[]
 }
 
+
 export default model<ICommand>('Command', CommandSchema)
 
 // //command.updateOne({name: 'npm'}, {$pull: { Arguments: { name: 'somename'}}})
