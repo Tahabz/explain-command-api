@@ -1,4 +1,3 @@
-import { Mongoose } from 'mongoose'
 import connect from '../../db/connect'
 import Command, {IMinCommand} from '../../models/Command'
 import commandService from '../../services/commandService'
@@ -52,7 +51,7 @@ describe('delete a command', () => {
 		}
 		const res = await commandService.createOne(install)
 		const resd = await commandService.deleteOne(res.id)
-		expect(res._id).toEqual(resd._id)
+		expect(res._id).toEqual(resd?._id)
 		done()
 	})
 })
@@ -74,10 +73,10 @@ describe('update a command', () => {
 		)
 
 		
-		expect(updated._id).toBeDefined()
+		expect(updated?._id).toBeDefined()
 		
-		if (updated.Arguments) {
-			expect(updated.Arguments[0].toHexString()).toBe(argId.toHexString());
+		if (updated?.Arguments) {
+			expect(updated?.Arguments[0].toHexString()).toBe(argId.toHexString());
 		}
 		done()
 	})
@@ -102,7 +101,7 @@ describe('get command', () => {
 
 		const commands = await commandService.getAll()
 
-		expect(commands.length).toBeGreaterThan(0)
+		expect(commands?.length).toBeGreaterThan(0)
 		done()
 	})
 
@@ -117,10 +116,10 @@ describe('get command', () => {
 		await commandService.createOne(install)
 
 		const getInstall = await commandService.getOne({name: install.name})
-		expect(getInstall._id).toBeDefined()
-		expect(getInstall.name).toBe(install.name)
-		expect(getInstall.description).toBe(install.description)
-		expect(getInstall.CommandType.toHexString()).toBe(install.CommandType.toHexString())
+		expect(getInstall?._id).toBeDefined()
+		expect(getInstall?.name).toBe(install.name)
+		expect(getInstall?.description).toBe(install.description)
+		expect(getInstall?.CommandType.toHexString()).toBe(install.CommandType.toHexString())
 		done()
 	})
 })

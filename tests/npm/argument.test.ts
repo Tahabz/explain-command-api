@@ -46,7 +46,7 @@ describe('delete an Argument', () => {
 		const res = await ArgumentService.createOne(restricted)
 		const resd = await ArgumentService.deleteOne(res.id)
 		expect(res._id).toBeDefined()
-		expect(res._id).toEqual(resd._id)
+		expect(res._id).toEqual(resd?._id)
 		done()
 	})
 })
@@ -66,8 +66,8 @@ describe('update an Argument', () => {
 			{ description: 'allowed package from npm' },
 			{ new: true }
 		)
-		expect(updated._id).toBeDefined()
-		expect(updated.description).toBe('allowed package from npm')
+		expect(updated?._id).toBeDefined()
+		expect(updated?.description).toBe('allowed package from npm')
 		done()
 	})
 })
@@ -88,7 +88,7 @@ describe('get command', () => {
 
 		const commands = await ArgumentService.getAll()
 
-		expect(commands.length).toBeGreaterThan(0)
+		expect(commands?.length).toBeGreaterThan(0)
 		done()
 	})
 
@@ -102,9 +102,9 @@ describe('get command', () => {
 		await ArgumentService.createOne(allowed)
 
 		const getallowed = await ArgumentService.getOne({ name: allowed.name })
-		expect(getallowed._id).toBeDefined()
-		expect(getallowed.name).toBe(allowed.name)
-		expect(getallowed.description).toBe(allowed.description)
+		expect(getallowed?._id).toBeDefined()
+		expect(getallowed?.name).toBe(allowed.name)
+		expect(getallowed?.description).toBe(allowed.description)
 		done()
 	})
 })

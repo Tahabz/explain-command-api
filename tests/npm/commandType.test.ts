@@ -56,7 +56,7 @@ describe('delete a command type', () => {
 		}
 		const res = await commandTypeService.createOne(npm)
 		const resd = await commandTypeService.deleteOne(res.id)
-		expect(res._id).toEqual(resd._id)
+		expect(res._id).toEqual(resd?._id)
 		done()
 	})
 })
@@ -72,7 +72,7 @@ describe('update a command type', () => {
 
 		const updated = await commandTypeService.updateOne({ name: 'brew' }, { description: 'node package not manager' }, { new: true })
 
-		expect(updated.description).not.toBe(cbrew.description)
+		expect(updated?.description).not.toBe(cbrew.description)
 
 		done()
 	})
@@ -94,7 +94,7 @@ describe('get command type', () => {
 
 		const commands = await commandTypeService.getAll()
 
-		expect(commands.length).toBeGreaterThan(0)
+		expect(commands?.length).toBeGreaterThan(0)
 		done()
 	})
 
@@ -108,9 +108,9 @@ describe('get command type', () => {
 		await commandTypeService.createOne(npm)
 
 		const getNpm = await commandTypeService.getOne({name: npm.name})
-		expect(getNpm._id).toBeDefined()
-		expect(getNpm.name).toBe(npm.name)
-		expect(getNpm.description).toBe(npm.description)
+		expect(getNpm?._id).toBeDefined()
+		expect(getNpm?.name).toBe(npm.name)
+		expect(getNpm?.description).toBe(npm.description)
 		done()
 	})
 })
