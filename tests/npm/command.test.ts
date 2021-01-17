@@ -2,6 +2,7 @@ import connect from '../../db/connect'
 import Command, {IMinCommand} from '../../models/Command'
 import commandService from '../../services/commandService'
 import mongoose from 'mongoose'
+import CommandType from '../../models/CommandType'
 
 afterEach(async () => {
  await Command.deleteMany()
@@ -113,6 +114,7 @@ describe('get command', () => {
 			description: 'install package from npm',
 			CommandType: mongoose.Types.ObjectId(),
 		}
+
 		await commandService.createOne(install)
 
 		const getInstall = await commandService.getOne({name: install.name})

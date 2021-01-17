@@ -2,21 +2,21 @@ import { Model, Document, FilterQuery, QueryOptions, UpdateQuery, LeanDocumentOr
 
 
 
-const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T | null>>((resolve, reject) => {
+const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
 	model.findOne(filter).lean().exec()
-		.then((doc) => {
+		.then((doc: LeanDocumentOrArray<T>) => {
 			if (!doc) reject(new Error('Empty document'));
 			resolve(doc);
 		})
 		.catch((e: any) => reject(e));
 });
 
-const getAll = <T extends Document>(model: Model<T>) => () => new Promise<LeanDocumentOrArray<T[] | null>>((resolve, reject) => {
+const getAll = <T extends Document>(model: Model<T>) => () => new Promise<LeanDocumentOrArray<T[]>>((resolve, reject) => {
 	model
 	.find({})
 	.lean()
 	.exec()
-		.then((docs)=> {
+		.then((docs: LeanDocumentOrArray<T[]>)=> {
 			if (!docs)
 				reject(new Error('Empty documents'));
 			resolve(docs);
@@ -33,18 +33,18 @@ const createOne = <T extends Document, U>(model: Model<T>) => (data: U) => new P
 		.catch((e: any) => reject(e));
 });
 
-const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T | null>>((resolve, reject) => {
+const deleteOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
 	model.findOneAndDelete(filter).lean().exec()
-		.then((removed) => {
+		.then((removed: LeanDocumentOrArray<T>) => {
 			if (!removed) reject(new Error('An error occured'));
 			resolve(removed);
 		})
 		.catch((e: any) => reject(e));
 });
 
-const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, data: UpdateQuery<T>, options?: QueryOptions) => new Promise<LeanDocumentOrArray<T | null>>((resolve, reject) => {
+const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, data: UpdateQuery<T>, options?: QueryOptions) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
 	model.findOneAndUpdate(filter, data, options).lean().exec()
-		.then((updated) => {
+		.then((updated: LeanDocumentOrArray<T>) => {
 			if (!updated) {
 				reject(new Error('An error occured'));
 			}
