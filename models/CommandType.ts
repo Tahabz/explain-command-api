@@ -25,7 +25,6 @@ export interface ICommandType extends Document{
 
 CommandTypeSchema.post('findOneAndDelete', async (doc: ICommandType) => {
 	try {
-		console.log(doc._id);
 		await Command.deleteMany({CommandType: doc._id})
 	} catch (e) {
 		console.log(e);

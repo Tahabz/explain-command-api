@@ -1,4 +1,5 @@
 import { Document, Model, model, Types, Schema, Query } from "mongoose"
+import argumentService from "../services/argumentService"
 import Argument, { IArgument } from "./Argument"
 import {ICommandType} from './CommandType'
 
@@ -38,9 +39,11 @@ export interface IMinCommand {
 }
 
 
-CommandSchema.post('findOneAndDelete', async (doc: ICommandType) => {
+CommandSchema.post('findOneAndDelete', (doc: ICommand) => {
 	try {
-		await Argument.deleteMany({id: doc.id})
+		doc.Arguments?.forEach(async (arg) => {
+			await argumentService.deleteOne({_id: arg})
+		})
 	} catch (e) {
 		console.log(e);
 	}
