@@ -40,9 +40,13 @@ export interface IMinCommand {
 
 
 CommandSchema.post<Query<ICommand, ICommand, ICommand>>('findOneAndUpdate', async function () {
-	const updateQuery = this.getUpdate();
-	if (updateQuery?.$pull?.Arguments) {
-		argumentService.deleteOne({_id: updateQuery.$pull.Arguments})
+	try {
+		const updateQuery = this.getUpdate();
+		if (updateQuery?.$pull?.Arguments) {
+			await argumentService.deleteOne({_id: updateQuery.$pull.Arguments})
+		}
+	} catch (e) {
+		console.log(e);
 	}
 })
 
