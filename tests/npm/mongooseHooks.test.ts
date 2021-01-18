@@ -111,5 +111,61 @@ describe('command', () => {
 		expect(carg3exist).toBeTruthy()
 		done()
 	})
+
+	it('should delete an argument from a command', async (done) => {
+
+		expect.assertions(6)
+		
+		const arg1: IMinArgument = {
+			name: 'access',
+			description: 'access some shit'
+		}
+		const arg2: IMinArgument = {
+			name: 'grant',
+			description: 'grant some shit'
+		}
+		const arg3: IMinArgument = {
+			name: 'random',
+			description: 'randomize some shit'
+		}
+
+		const carg1 = await argumentService.createOne(arg1)
+		const carg2 = await argumentService.createOne(arg2)
+		const carg3 = await argumentService.createOne(arg3)
+
+
+		const npm: IMinCommandType = {
+			name: 'npm',
+			description: 'node package manager'
+		}
+		const comtype = await commandTypeService.createOne(npm)
+
+		const install: IMinCommand = {
+			name: 'install',
+			description: 'install a package from npm',
+			CommandType: comtype.id,
+			Arguments: [carg1.id, carg2.id, carg3]
+		}
+		await commandService.createOne(install)
+
+		await commandService.updateOne({name: 'install'}, {$pull: { Arguments: carg1.id}})
+
+		const carg1exist = await Argument.exists({name: carg1.name})
+		const carg2exist = await Argument.exists({name: carg2.name})
+		const carg3exist = await Argument.exists({name: carg3.name})
+
+		const carg1existRef = await Command.exists({Arguments: carg1.id})
+		const carg2existRef = await Command.exists({Arguments: carg2.id})
+		const carg3existRef = await Command.exists({Arguments: carg3.id})
+
+		expect(carg1existRef).toBeFalsy()
+		expect(carg2existRef).toBeTruthy()
+		expect(carg3existRef).toBeTruthy()
+
+		expect(carg1exist).toBeFalsy()
+		expect(carg2exist).toBeTruthy()
+		expect(carg3exist).toBeTruthy()
+		done()
+	})
 })
 

@@ -27,7 +27,7 @@ const CommandSchema = new Schema({
 export interface ICommand extends Document {
 	readonly name: string,
 	readonly description: string,
-	readonly CommandType: Types.ObjectId,
+	readonly CommandType: Types.ObjectId, 
 	readonly Arguments?: Types.ObjectId[]
 }
 
@@ -38,6 +38,13 @@ export interface IMinCommand {
 	readonly Arguments?: Types.ObjectId[]
 }
 
+
+CommandSchema.post<Query<ICommand, ICommand, ICommand>>('findOneAndUpdate', async function () {
+	const updateQuery = this.getUpdate();
+	if (updateQuery?.$pull?.Arguments) {
+		argumentService.deleteOne({_id: updateQuery.$pull.Arguments})
+	}
+})
 
 CommandSchema.post('findOneAndDelete', (doc: ICommand) => {
 	try {
@@ -51,4 +58,4 @@ CommandSchema.post('findOneAndDelete', (doc: ICommand) => {
 
 export default model<ICommand>('Command', CommandSchema)
 
-// //command.updateOne({name: 'npm'}, {$pull: { Arguments: { name: 'somename'}}})
+

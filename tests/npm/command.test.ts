@@ -55,6 +55,7 @@ describe('delete a command', () => {
 		expect(res._id).toEqual(resd?._id)
 		done()
 	})
+	
 })
 
 describe('update a command', () => {
@@ -82,6 +83,7 @@ describe('update a command', () => {
 		done()
 	})
 })
+
 
 
 describe('get command', () => {
