@@ -1,5 +1,6 @@
 import { Document, Model, model, Types, Schema, Query } from "mongoose"
-import argumentService from "../services/argumentService";
+import commandService from "../services/commandService";
+import Command from "./Command";
 
 const ArgumentSchema = new Schema({
 	name: {
@@ -22,12 +23,13 @@ export interface IMinArgument {
 	description: string
 }
 
-ArgumentSchema.post('findOneAndDelete', async (doc: IArgument) => {
-	try {
-		await argumentService.updateOne({_id: doc.id}, {$pull: { Arguments: doc.id}})
-	} catch (e) {
-		console.log(e);
-	}
-})
+// ArgumentSchema.post('findOneAndDelete', async (doc: IArgument) => {
+// 	try {
+// 		//await argumentService.getAll() 
+// 		await Command.updateOne({Arguments: doc._id}, {$pull: { Arguments: doc._id}})
+// 	} catch (e) {
+// 		console.log(e);
+// 	}
+// })
 
 export default model<IArgument>("Argument", ArgumentSchema)

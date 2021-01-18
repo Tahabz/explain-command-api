@@ -1,11 +1,21 @@
 import express from 'express'
+import morgan from 'morgan'
 import connect from './db/connect'
+
 require('dotenv').config();
 
 
 const app = express()
 
+app.use(express.json());
+app.use(morgan('dev'))
 app.get('/', (req, res) => {
+	console.log(req.body);
+  res.send('Hello World')
+})
+
+app.post('/', (req, res) => {
+	console.log(req.body);
   res.send('Hello World')
 })
 
