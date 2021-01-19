@@ -3,6 +3,8 @@ import {addCommandType, deleteCommandType, getCommandType} from '../../controlle
 
 const router = Router()
 
-router.post('/add', addCommandType)
-router.delete('/delete', deleteCommandType)
+router.post('/add-command-type', addCommandType)
+router.delete('/', deleteCommandType)
 router.get('/get', getCommandType)
+
+export default router
