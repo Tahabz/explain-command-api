@@ -11,6 +11,16 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 		.catch((e: any) => reject(e));
 });
 
+
+const getMany = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T[]>>((resolve, reject) => {
+	model.find(filter).lean().exec()
+		.then((doc: LeanDocumentOrArray<T[]>) => {
+			if (!doc) reject(new Error('Document does not exist'));
+			resolve(doc);
+		})
+		.catch((e: any) => reject(e));
+});
+
 const getOneAndPopulate = <T extends Document, X>(model: Model<T>) => (filter: FilterQuery<T>, ref: string) => new Promise<LeanDocumentOrArray<X>>((resolve, reject) => {
 	model.findOne(filter).lean().populate(ref).exec()
 		.then((doc: LeanDocumentOrArray<X>) => {
@@ -65,6 +75,7 @@ const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<
 export default <T extends Document, U, X = any>(model: Model<T>) => ({
 	getOne: getOne(model),
 	getAll: getAll(model),
+	getMany: getMany(model),
 	createOne: createOne<T, U>(model),
 	updateOne: updateOne(model),
 	deleteOne: deleteOne(model),

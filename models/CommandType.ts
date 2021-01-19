@@ -18,19 +18,21 @@ export interface IMinCommandType {
 	readonly description: string
 }
 
-export interface ICommandType extends Document{
+export interface ICommandType extends Document {
 	readonly name: string,
 	readonly description: string
 }
 
-CommandTypeSchema.post('findOneAndDelete', async (doc: ICommandType) => {
+const middleware = async (doc: ICommandType) => {
 	if (doc) {
 		try {
-			await Command.deleteMany({CommandType: doc._id})
-		} catch (e) {
+			await Command.deleteMany({ CommandType: doc._id })
+		} catch (e) {	
 			console.log(e);
 		}
 	}
-})
+}
+
+CommandTypeSchema.post('findOneAndDelete', middleware)
 
 export default model<ICommandType>("CommandType", CommandTypeSchema)
