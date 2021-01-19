@@ -1,6 +1,3 @@
-import Argument from '../models/Argument'
-import Command from '../models/Command'
-import CommandType, {IMinCommandType} from '../models/CommandType'
 import commandTypeService from '../services/commandTypeService'
 import express from 'express'
 
