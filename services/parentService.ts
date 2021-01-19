@@ -3,7 +3,7 @@ import { Model, Document, FilterQuery, QueryOptions, UpdateQuery, LeanDocumentOr
 
 
 const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
-	model.findOne(filter, { _id: 0, __v: 0 }).lean().exec()
+	model.findOne(filter).lean().exec()
 		.then((doc: LeanDocumentOrArray<T>) => {
 			if (!doc) reject(new Error('Document does not exist'));
 			resolve(doc);
@@ -11,9 +11,9 @@ const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>)
 		.catch((e: any) => reject(e));
 });
 
-const getOneAndPopulate = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>, ref: string) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
+const getOneAndPopulate = <T extends Document, X>(model: Model<T>) => (filter: FilterQuery<T>, ref: string) => new Promise<LeanDocumentOrArray<X>>((resolve, reject) => {
 	model.findOne(filter).lean().populate(ref).exec()
-		.then((doc: LeanDocumentOrArray<T>) => {
+		.then((doc: LeanDocumentOrArray<X>) => {
 			if (!doc) reject(new Error('Document does not exist'));
 			resolve(doc);
 		})
@@ -62,11 +62,11 @@ const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<
 		.catch((e: any) => reject(e));
 });
 
-export default <T extends Document, U>(model: Model<T>) => ({
+export default <T extends Document, U, X = any>(model: Model<T>) => ({
 	getOne: getOne(model),
 	getAll: getAll(model),
 	createOne: createOne<T, U>(model),
 	updateOne: updateOne(model),
 	deleteOne: deleteOne(model),
-	getOneAndPopulate: getOneAndPopulate(model)
+	getOneAndPopulate: getOneAndPopulate<T, X>(model)
 });

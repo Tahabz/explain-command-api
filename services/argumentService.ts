@@ -1,4 +1,4 @@
 import parentService from './parentService'
-import argument from '../models/Argument'
+import argument, { IArgument, IMinArgument } from '../models/Argument'
 
-export default parentService(argument)
+export default parentService<IArgument, IMinArgument>(argument)

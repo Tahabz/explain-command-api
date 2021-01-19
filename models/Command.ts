@@ -38,6 +38,12 @@ export interface IMinCommand {
 	readonly Arguments?: Types.ObjectId[]
 }
 
+export interface IMinCommandPopulated {
+	readonly name: string,
+	readonly description: string,
+	readonly CommandType: ICommandType,
+	readonly Arguments?: Types.ObjectId[]
+}
 
 CommandSchema.post<Query<ICommand, ICommand, ICommand>>('findOneAndUpdate', async function () {
 	try {

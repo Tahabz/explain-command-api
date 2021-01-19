@@ -157,7 +157,6 @@ describe('command', () => {
 		const carg2existRef = await Command.exists({Arguments: carg2.id})
 		const carg3existRef = await Command.exists({Arguments: carg3.id})
 
-		console.log(pop);
 		expect(carg1existRef).toBeFalsy()
 		expect(carg2existRef).toBeTruthy()
 		expect(carg3existRef).toBeTruthy()

@@ -3,8 +3,8 @@ import {addArgument, deleteArgument, getArgument} from '../../controllers/argume
 
 const router = Router()
 
-router.post('/add-argument-type', addArgument)
-router.delete('/delete-argument-type', deleteArgument)
-router.get('/get-argument-type/:name', getArgument)
+router.post('/add-argument', addArgument)
+router.delete('/delete-argument', deleteArgument)
+router.get('/get-argument/:name', getArgument)
 
 export default router

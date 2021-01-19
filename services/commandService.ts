@@ -1,4 +1,4 @@
 import parentService from './parentService'
-import command, {IMinCommand, ICommand} from '../models/Command'
+import command, {IMinCommand, ICommand, IMinCommandPopulated} from '../models/Command'
 
-export default parentService<ICommand, IMinCommand>(command)
+export default parentService<ICommand, IMinCommand, IMinCommandPopulated>(command)

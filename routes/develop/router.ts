@@ -1,6 +1,11 @@
 import {Router} from 'express'
-import commandRouter from './command-type'
+import commandTypeRouter from './command-type'
+import argumentRouter from './argument'
+import commandRouter from './command'
 
 const router = Router()
 
-export default router.use(commandRouter)
+router.use(argumentRouter)
+router.use(commandTypeRouter)
+router.use(commandRouter)
+export default router
