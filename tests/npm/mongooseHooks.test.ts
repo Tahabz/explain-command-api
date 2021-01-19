@@ -3,7 +3,6 @@ import Command, {IMinCommand} from '../../models/Command'
 import commandService from '../../services/commandService'
 import commandTypeService from '../../services/commandTypeService'
 import commandType, { IMinCommandType } from '../../models/CommandType'
-import mongoose from 'mongoose'
 import CommandType from '../../models/CommandType'
 import Argument, { IMinArgument } from '../../models/Argument'
 import argumentService from '../../services/argumentService'
@@ -32,11 +31,11 @@ describe('commandType', () => {
 			name: 'npm',
 			description: 'node package manager'
 		}
-		const khra: IMinCommandType = {
+		const random: IMinCommandType = {
 			name: 'random',
 			description: 'random package manager'
 		}
-		await commandTypeService.createOne(khra)
+		await commandTypeService.createOne(random)
 		const comtype = await commandTypeService.createOne(npm)
 
 		const install: IMinCommand = {

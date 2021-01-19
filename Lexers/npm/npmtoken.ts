@@ -1,3 +1,4 @@
+import fs from "fs"
 import { Tokens } from "../tokens"
 
 type Type = "NPM" | "ARGUMENT" | "COMMAND"
@@ -12,11 +13,9 @@ export const npmTypes: {readonly [key: string]: Type} = {
   command: "COMMAND"
 }
 
-export const npmTokens : Tokens<Type> = {
-  install: "COMMAND",
-  i      : "COMMAND",
-  add    : "COMMAND",
-  access : "COMMAND",
-  npm    : "NPM",
-  arg    : "ARGUMENT",
-}
+
+const tokens = fs.readFileSync("./tokens.json").toString()
+
+export const npmTokens : Tokens<Type> = JSON.parse(tokens)
+
+console.log(npmTokens);

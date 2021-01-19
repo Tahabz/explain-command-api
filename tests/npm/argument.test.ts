@@ -58,7 +58,6 @@ describe('update an Argument', () => {
 			name: 'restricted',
 			description: 'restricted package from npm',
 		}
-		const argId = mongoose.Types.ObjectId()
 		await ArgumentService.createOne(restricted)
 
 		const updated = await ArgumentService.updateOne(

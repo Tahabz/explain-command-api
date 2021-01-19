@@ -62,4 +62,3 @@ CommandSchema.post('findOneAndDelete', (doc: ICommand) => {
 
 export default model<ICommand>('Command', CommandSchema)
 
-
