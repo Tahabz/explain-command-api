@@ -3,7 +3,7 @@ import commandService from '../services/commandService'
 import argumentService from '../services/argumentService'
 import Command, { ICommand } from '../models/Command'
 import express from 'express'
-import { ICommandType } from '../models/CommandType'
+import CommandType, { ICommandType } from '../models/CommandType'
 
 export const addCommandType = (req: express.Request, res: express.Response) => {
 	const { name, description } = req.body
@@ -47,4 +47,17 @@ export const getCommandType = (req: express.Request, res: express.Response) => {
 	commandTypeService.getOne({ name: req.params.name })
 		.then(doc => res.status(200).json({ success: true, data: doc }))
 		.catch(e => res.status(400).json({ success: false, messsage: e.message }))
+}
+
+export const updateCommandType = (req: express.Request, res: express.Response) => {
+	const {commandTypeName} = req.body
+	const {data} = req.body
+	console.log(data);
+	if (data && commandTypeName) {
+		commandTypeService.updateOne({name: commandTypeName}, data)
+			.then(doc => res.status(200).json({ success: true, data: doc }))
+			.catch(e => res.status(422).json({ success: false, message: e.message }))
+	} else {
+		return res.status(400).json({ success: false, message: "bad request" })
+	}
 }

@@ -6,7 +6,7 @@ const ArgumentSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		unique: true
+		unique: true,
 	},
 	description: {
 		type: String,
