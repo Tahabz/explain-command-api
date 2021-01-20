@@ -65,7 +65,7 @@ const updateOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<
 	model.findOneAndUpdate(filter, data, options).lean().exec()
 		.then((updated: LeanDocumentOrArray<T>) => {
 			if (!updated) {
-				reject(new Error('An error occured'));
+				reject(new Error('Document does not exist'));
 			}
 			resolve(updated);
 		})

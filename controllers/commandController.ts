@@ -41,3 +41,16 @@ export const getcommand = (req: express.Request, res: express.Response) => {
 	.then(doc => res.status(200).json({success: true, data: doc}))
 	.catch(e => res.status(400).json({success: false, messsage: e.message}))
 }
+
+export const updateCommand = (req: express.Request, res: express.Response) => {
+	const {commandName} = req.body
+	const {data} = req.body
+	console.log(data)
+	if (data && commandName) {
+		commandService.updateOne({name: commandName}, data)
+			.then(doc => res.status(200).json({ success: true, data: doc }))
+			.catch(e => res.status(422).json({ success: false, message: e.message }))
+	} else {
+		return res.status(400).json({ success: false, message: "bad request" })
+	}
+}
