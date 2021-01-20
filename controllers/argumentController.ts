@@ -9,8 +9,9 @@ export const addArgument = (req: express.Request, res: express.Response) => {
 
 	if (name && description && commandName && commandTypeName) {
 		commandService.getOneAndPopulate({ name: commandName }, 'CommandType')
-			.then(command => {
-				if (command.CommandType.name === commandTypeName) {
+		.then(command => {
+			console.log(command);
+			if (command.CommandType.name === commandTypeName) {
 					argumentService.createOne({ name, description })
 						.then(arg => {
 							commandService.updateOne({ name: command.name }, { $push: { Arguments: arg._id } })

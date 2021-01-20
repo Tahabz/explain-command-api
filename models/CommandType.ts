@@ -23,16 +23,16 @@ export interface ICommandType extends Document {
 	readonly description: string
 }
 
-const middleware = async (doc: ICommandType) => {
-	if (doc) {
-		try {
-			await Command.deleteMany({ CommandType: doc._id })
-		} catch (e) {	
-			console.log(e);
-		}
-	}
-}
+// const middleware = async (doc: ICommandType) => {
+// 	if (doc) {
+// 		try {
+// 			await Command.deleteMany({ CommandType: doc._id })
+// 		} catch (e) {	
+// 			console.log(e);
+// 		}
+// 	}
+// }
 
-CommandTypeSchema.post('findOneAndDelete', middleware)
+// CommandTypeSchema.post('findOneAndDelete', middleware)
 
 export default model<ICommandType>("CommandType", CommandTypeSchema)

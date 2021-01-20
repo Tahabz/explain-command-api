@@ -59,7 +59,7 @@ CommandSchema.post<Query<ICommand, ICommand, ICommand>>('findOneAndUpdate', asyn
 
 CommandSchema.post('findOneAndDelete', (doc: ICommand) => {
 	try {
-		console.log(doc);
+		console.log("FINDONEANDDELETE:", doc);
 		doc.Arguments?.forEach(async (arg) => {
 			await argumentService.deleteOne({_id: arg})
 		})
