@@ -18,4 +18,3 @@ const tokens = fs.readFileSync("./tokens.json").toString()
 
 export const npmTokens : Tokens<Type> = JSON.parse(tokens)
 
-console.log(npmTokens);

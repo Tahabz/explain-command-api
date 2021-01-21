@@ -26,7 +26,6 @@ describe('Create an Argument', () => {
 		}
 
 		const resRestricted = await ArgumentService.createOne(restricted)
-
 		expect(resRestricted._id).toBeDefined()
 		expect(resRestricted.name).toBe(restricted.name)
 		expect(resRestricted.description).toBe(restricted.description)
