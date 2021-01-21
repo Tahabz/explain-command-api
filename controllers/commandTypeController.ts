@@ -46,7 +46,7 @@ export const deleteCommandType = (req: express.Request, res: express.Response) =
 export const getCommandType = (req: express.Request, res: express.Response) => {
 	commandTypeService.getOne({ name: req.params.name })
 		.then(doc => res.status(200).json({ success: true, data: doc }))
-		.catch(e => res.status(400).json({ success: false, messsage: e.message }))
+		.catch(e => res.status(404).json({ success: false, messsage: e.message }))
 }
 
 export const updateCommandType = (req: express.Request, res: express.Response) => {
