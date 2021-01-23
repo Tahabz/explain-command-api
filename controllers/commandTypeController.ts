@@ -1,9 +1,7 @@
 import commandTypeService from '../services/commandTypeService'
 import commandService from '../services/commandService'
-import argumentService from '../services/argumentService'
-import Command, { ICommand } from '../models/Command'
+import { ICommand } from '../models/Command'
 import express from 'express'
-import CommandType, { ICommandType } from '../models/CommandType'
 
 export const addCommandType = (req: express.Request, res: express.Response) => {
 	const { name, description } = req.body
