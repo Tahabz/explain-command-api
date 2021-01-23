@@ -1,8 +1,8 @@
 import {Router} from 'express'
-import explainNpm from '../../controllers/explainCommandController'
+import explainCommand from '../../controllers/explainCommandController'
 
 const userRouter = Router()
 
-userRouter.post('/npm', explainNpm)
+userRouter.post('/', explainCommand)
 
 export default userRouter

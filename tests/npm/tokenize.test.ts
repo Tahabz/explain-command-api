@@ -46,19 +46,19 @@ it("tests the tokenizer with different input", () => {
 	];
 	expect(tokenize("npm i jest", npmTokens)).toEqual(tok)
 	const tok2: IToken<npmType, npmVal>[] = [
-		newToken("NPM", "npm"),
+		newToken("COMMANDTYPE", "npm"),
 		newToken("COMMAND", "access"),
 		newToken("ARGUMENT", "grant")
 	]
 	expect(tokenize("npm access grant", npmTokens)).toEqual(tok2)
 	const tok3 : IToken<npmType, npmVal>[]= [
-		newToken("NPM", "npm"),
+		newToken("COMMANDTYPE", "npm"),
 		newToken("COMMAND", "access"),
 		newToken("ARGUMENT", "revoke")
 	]
 	expect(tokenize("npm access revoke", npmTokens)).toEqual(tok3)
 	const tok4 : IToken<npmType, npmVal>[]= [
-		newToken("NPM", "npm"),
+		newToken("COMMANDTYPE", "npm"),
 		newToken("COMMAND", "add"),
 		newToken("ARGUMENT", "some"),
 		newToken("ARGUMENT", "package")

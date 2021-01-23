@@ -1,7 +1,7 @@
 import IToken, { Tokens } from './tokens';
 import {npmType, npmVal, npmTypes} from './npm/npmtoken'
 
-type Type = npmType
+export type Type = npmType
 type Value = npmVal
 
 const types: {readonly [key: string]: Type} = npmTypes

@@ -1,14 +1,14 @@
 import fs from "fs"
 import { Tokens } from "../tokens"
 
-type Type = "NPM" | "ARGUMENT" | "COMMAND"
+type Type = "COMMANDTYPE" | "ARGUMENT" | "COMMAND"
 type Command =  "INSTALL" | "I" | "ADD" | "ACCESS"
 
 export type npmVal = Command | string
 export type npmType = Type
 
 export const npmTypes: {readonly [key: string]: Type} = {
-  npm: "NPM",
+  npm: "COMMANDTYPE",
   arg: "ARGUMENT",
   command: "COMMAND"
 }
