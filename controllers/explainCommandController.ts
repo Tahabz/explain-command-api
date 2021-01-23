@@ -12,10 +12,13 @@ import IToken from '../Lexers/tokens'
 import { token } from 'morgan'
 
 
+interface LooseObject {
+  [key: string]: any
+}
 interface output {
   commandType?: string,
   command?: string,
-  arguments?: {}[]
+  arguments?: LooseObject
 }
 
 const check_errors = (tokens: IToken<Type, string>[]): boolean => {
@@ -34,7 +37,7 @@ export const explainCommand = async (req:express.Request, res: express.Response)
 
   if (commandString && commandType) {
 
-    let outputRes: output = {arguments: []}
+    let outputRes: output = {arguments: {}}
     const outputTokens = tokenize(commandString, npmTokens)
     console.log(outputTokens);
     if (check_errors(outputTokens)) {
@@ -54,9 +57,14 @@ export const explainCommand = async (req:express.Request, res: express.Response)
           }
           else {
             const arg = await argumentService.getOne({name: token.value})
-            console.log(arg);
-            await Command.exists({name: outputTokens[1].value, Arguments: arg._id})
-            outputRes.arguments?.push({arg: arg.description})
+            if (!arg) {
+              if (outputRes.arguments)
+                outputRes.arguments[token.value] = "arg does not exist"
+            } else {
+              await Command.exists({name: outputTokens[1].value, Arguments: arg._id})
+              if (outputRes.arguments)
+                outputRes.arguments[token.value] = arg.description
+            }
           }
           console.log(outputRes);
         } catch(e) {

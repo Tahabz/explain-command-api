@@ -5,7 +5,7 @@ import { Model, Document, FilterQuery, QueryOptions, UpdateQuery, LeanDocumentOr
 const getOne = <T extends Document>(model: Model<T>) => (filter: FilterQuery<T>) => new Promise<LeanDocumentOrArray<T>>((resolve, reject) => {
 	model.findOne(filter).lean().exec()
 		.then((doc: LeanDocumentOrArray<T>) => {
-			if (!doc) reject(new Error('Document does not exist'));
+	//		if (!doc) reject(new Error('Document does not exist'));
 			resolve(doc);
 		})
 		.catch((e: any) => reject(e));
